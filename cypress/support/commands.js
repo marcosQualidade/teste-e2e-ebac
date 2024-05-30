@@ -8,48 +8,13 @@ Cypress.Commands.add('login', (usuario, senha) => {
     cy.get('#password').type(senha, {log: false})
     cy.get('.woocommerce-button').click()
 });
-
-Cypress.Commands.add('primeiroProduto', () => { 
-    let produto1 = '.post-2559 > .product-block > .caption > .meta > .infor > .name > a' 
-    
+Cypress.Commands.add('adicionarProdutos', (produto, tamanho, cor) => {
     cy.get(link_comprar).click()
-    cy.get(produto1).should('be.visible').click()
-    cy.get('.button-variable-item-L').click()
-    cy.get('.button-variable-item-Red').click()
+    cy.get(produto).should('be.visible').click()
+    cy.get('.button-variable-item-'+ tamanho).click()
+    cy.get('.button-variable-item-' + cor).click()
     cy.get(btn_comprar).click()
 })
-
-Cypress.Commands.add('segundoProduto', () => {
-    let produto2 = '.post-3111 > .product-block > .caption > .meta > .infor > .name > a'
-
-    cy.get(link_comprar).click()
-    cy.get(produto2).should('be.visible').click()
-    cy.get('.button-variable-item-L').click()
-    cy.get('.button-variable-item-Black').click()
-    cy.get(btn_comprar).click()
-})
-
-Cypress.Commands.add('terceiroProduto', () => {
-    let produto3 = '.post-3073 > .product-block > .caption > .meta > .infor > .name > a'
-
-    cy.get(link_comprar).click()
-    cy.get(produto3).should('be.visible').click()
-    cy.get('.button-variable-item-36').click()
-    cy.get('.button-variable-item-Brown').click()
-    cy.get(btn_comprar).click()
-
-})
-
-Cypress.Commands.add('quartoProduto', () => {
-    let produto4 = '.post-3647 > .product-block > .caption > .meta > .infor > .name > a'
-
-    cy.get(link_comprar).click()
-    cy.get(produto4).should('be.visible').click()
-    cy.get('.button-variable-item-M').click()
-    cy.get('.button-variable-item-Gray').click()
-    cy.get(btn_comprar).click() 
-})
-
 Cypress.Commands.add('carrinho', () => {
     cy.get('.woocommerce-message > .button').click()
  // valida se os produtos estão de fato no carrinho.
@@ -60,7 +25,6 @@ Cypress.Commands.add('carrinho', () => {
      });
     cy.get('.checkout-button').click()
 })
-
 Cypress.Commands.add('checkout', () => {
     cy.fixture('usuarios').then((dados) => {
         cy.get('#billing_first_name').type(dados.nome)
@@ -100,9 +64,6 @@ Cypress.Commands.add('login', () => {
     cy.get('#terms').check()
     cy.get('#place_order').click()    
 })
-
-
-
 export {link_comprar} 
 export {btn_comprar}
 export {msg_sucesso}

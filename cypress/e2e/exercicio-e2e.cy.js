@@ -16,50 +16,24 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
 
    it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
       //TODO: Coloque todo o fluxo de teste aqui, considerando as boas práticas e otimizações
-      cy.primeiroProduto();
-      // Verifica se o link/botão de compras existe e está visivel na página
-      cy.get('body').find(link_comprar).should('exist').and('be.visible');
-      // verifica se a home de produtos foi carregada corretamente.
-      cy.get('body').find('#content').should('be.visible');
-      // verifica se o nome do produto está visivel no detalhe do produto selecionado.
-      cy.get('.product_title').should('contain', 'Abominable Hoodie');
-      // verifica se o botão para adicionar o produto ao carrinho está habilitado.
-      cy.get(btn_comprar).should('be.enabled');
-      // verifica se o produto foi adicionado com sucesso ao carrinho.
+      
+      let produto1 = '.post-2559 > .product-block > .caption > .meta > .infor > .name > a'
+      cy.adicionarProdutos(produto1, 'L', 'Red')
+      cy.get('.woocommerce-message').should('contain', msg_sucesso);
+    
+      let produto2 = '.post-3111 > .product-block > .caption > .meta > .infor > .name > a'
+      cy.adicionarProdutos(produto2, 'L', 'Black')
       cy.get('.woocommerce-message').should('contain', msg_sucesso);
 
-      cy.segundoProduto();
-      // Verifica se o link/botão de compras existe e está visivel na página
-      cy.get('body').find(link_comprar).should('exist').and('be.visible');
-      // verifica se o nome do produto está visivel no detalhe do produto selecionado.
-      cy.get('.product_title').should('contain', 'Aero Daily Fitness Tee');
-      // verifica se o botão para adicionar o produto ao carrinho está habilitado.
-      cy.get(btn_comprar).should('be.enabled');
-      // verifica se o produto foi adicionado com sucesso ao carrinho.
+      let produto3 = '.post-3073 > .product-block > .caption > .meta > .infor > .name > a'
+      cy.adicionarProdutos(produto3, '36', 'Brown')
       cy.get('.woocommerce-message').should('contain', msg_sucesso);
 
-      cy.terceiroProduto();
-      // Verifica se o link/botão de compras existe e está visivel na página
-      cy.get('body').find(link_comprar).should('exist').and('be.visible');
-      // verifica se o nome do produto está visivel no detalhe do produto selecionado.
-      cy.get('.product_title').should('contain', 'Aether Gym Pant');
-      // verifica se o botão para adicionar o produto ao carrinho está habilitado.
-      cy.get(btn_comprar).should('be.enabled');
-      // verifica se o produto foi adicionado com sucesso ao carrinho.
-      cy.get('.woocommerce-message').should('contain', msg_sucesso);
+      let produto4 = '.post-3647 > .product-block > .caption > .meta > .infor > .name > a'
+      cy.adicionarProdutos(produto4, 'M', 'Gray')
+      cy.get('.woocommerce-message').should('contain', msg_sucesso)
 
-      cy.quartoProduto();
-      // Verifica se o link/botão de compras existe e está visivel na página.
-      cy.get('body').find(link_comprar).should('exist').and('be.visible');
-      // verifica se a home de produtos foi carregada corretamente.
-      cy.get('body').find('#content').should('be.visible');
-      // verifica se o nome do produto está visivel no detalhe do produto selecionado.
-      cy.get('.product_title').should('contain', 'Argus All-Weather Tank');
-      // verifica se o botão para adicionar o produto ao carrinho está habilitado.
-      cy.get(btn_comprar).should('be.enabled');
-      // verifica se o produto foi adicionado com sucesso ao carrinho.
-      cy.get('.woocommerce-message').should('contain', msg_sucesso);
-
+      
       cy.get('.woocommerce-message > .button').should('be.visible')
       cy.carrinho();
       cy.url().should('include', '/checkout/')
@@ -70,4 +44,5 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
       cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
       cy.get('body').find('.woocommerce-customer-details').should('exist', 'be.visible')
    });
+
 });
